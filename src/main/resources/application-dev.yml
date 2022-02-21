@@ -1,0 +1,64 @@
+logging:
+    level:
+        ROOT: DEBUG
+        org.hibernate.SQL: DEBUG
+        com.example.demo: DEBUG
+
+spring:
+    devtools:
+        restart:
+            enabled: true
+            additional-exclude: static/**,.h2.server.properties
+    jackson:
+        serialization:
+            indent-output: true
+    datasource:
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:postgresql://localhost:5432/postgres
+        username: user
+        password: password
+        hikari:
+            poolName: Hikari
+            auto-commit: false
+    mail:
+        host: localhost
+        port: 25
+        username:
+        password:
+    messages:
+        cache-duration: PT1S # 1 second, see the ISO 8601 standard
+    thymeleaf:
+        cache: false
+
+server:
+    port: 8080
+
+root:
+    cache:
+        ehcache:
+            time-to-live-seconds: 3600
+            max-entries: 100
+    cors:
+        allowed-origins: 'http://localhost:8100,https://localhost:8100,http://localhost:9000,https://localhost:9000'
+        allowed-methods: '*'
+        allowed-headers: '*'
+        exposed-headers: 'Authorization,Link,X-Total-Count,X-${root.clientApp.name}-alert,X-${root.clientApp.name}-error,X-${root.clientApp.name}-params'
+        allow-credentials: true
+        max-age: 1800
+    security:
+        authentication:
+            jwt:
+                # openssl rand -base64 64
+                base64-secret: MDlmNmZhMzc1MTU1MGFkZjI5ZmJhY2NkODI3N2UyMWEzZTkyNTU1MzkzNzkxMzA0NGI4NjI5OWFmYTc4Y2ViMTlmMTA4MTZmNjBiNWYyNGQ1MDJkNDVhMjI1NmVkOTZmMTBlYWI5Y2U0MGVlODA0NTNiMGI1ZThiZDU4ZTcwZWM=
+                token-validity-in-seconds: 86400
+                token-validity-in-seconds-for-remember-me: 2592000
+    mail:
+        base-url: http://127.0.0.1:8080
+    logging:
+        use-json-format: false
+        logstash:
+            enabled: false
+            host: localhost
+            port: 5000
+            queue-size: 512
+

@@ -1,0 +1,67 @@
+logging:
+    level:
+        ROOT: INFO
+        com.example.demo: INFO
+
+management:
+    metrics:
+        export:
+            prometheus:
+                enabled: false
+
+spring:
+    devtools:
+        restart:
+            enabled: false
+        livereload:
+            enabled: false
+    datasource:
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:postgresql://localhost:5432/postgres
+        username: user
+        password: password
+        hikari:
+            poolName: Hikari
+            auto-commit: false
+    mail:
+        host: localhost
+        port: 25
+        username:
+        password:
+    thymeleaf:
+        cache: true
+
+
+
+server:
+    port: 8080
+    shutdown: graceful # see https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-graceful-shutdown
+    compression:
+        enabled: true
+        mime-types: text/html,text/xml,text/plain,text/css,application/javascript,application/json,image/svg+xml
+        min-response-size: 1024
+
+
+root:
+    http:
+        cache:
+            timeToLiveInDays: 1461
+    cache:
+        ehcache:
+            time-to-live-seconds: 3600
+            max-entries: 1000
+    security:
+        authentication:
+            jwt:
+                base64-secret: MDlmNmZhMzc1MTU1MGFkZjI5ZmJhY2NkODI3N2UyMWEzZTkyNTU1MzkzNzkxMzA0NGI4NjI5OWFmYTc4Y2ViMTlmMTA4MTZmNjBiNWYyNGQ1MDJkNDVhMjI1NmVkOTZmMTBlYWI5Y2U0MGVlODA0NTNiMGI1ZThiZDU4ZTcwZWM=
+                token-validity-in-seconds: 86400
+                token-validity-in-seconds-for-remember-me: 2592000
+    mail:
+        base-url: http://my-server-url-to-change
+    logging:
+        use-json-format: false
+        logstash:
+            enabled: false
+            host: localhost
+            port: 5000
+            queue-size: 512
