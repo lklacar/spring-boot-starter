@@ -6,7 +6,6 @@ import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.Nonnull;
-import javax.validation.constraints.NotNull;
 
 @Configuration
 public class DateTimeFormatConfiguration implements WebMvcConfigurer {

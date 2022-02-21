@@ -1,6 +1,7 @@
 package com.example.demo.config;
 
 
+@SuppressWarnings({"java:S115", "java:S1214"})
 public interface RootPropertyDefaults {
 
     interface Async {

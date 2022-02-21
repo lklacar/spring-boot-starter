@@ -28,7 +28,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait {
@@ -66,9 +65,9 @@ public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait
             .withTitle(problem.getTitle())
             .with(PATH_KEY, requestUri);
 
-        if (problem instanceof ConstraintViolationProblem) {
+        if (problem instanceof ConstraintViolationProblem constraintViolationProblem) {
             builder
-                .with(VIOLATIONS_KEY, ((ConstraintViolationProblem) problem).getViolations())
+                .with(VIOLATIONS_KEY, constraintViolationProblem.getViolations())
                 .with(MESSAGE_KEY, ErrorConstants.ERR_VALIDATION);
         } else {
             builder.withCause(((DefaultProblem) problem).getCause()).withDetail(problem.getDetail()).withInstance(problem.getInstance());
@@ -93,7 +92,7 @@ public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait
                     StringUtils.isNotBlank(f.getDefaultMessage()) ? f.getDefaultMessage() : f.getCode()
                 )
             )
-            .collect(Collectors.toList());
+            .toList();
 
         Problem problem = Problem
             .builder()

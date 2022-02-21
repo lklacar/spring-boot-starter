@@ -1,7 +1,11 @@
 package com.example.demo.config;
 
-public interface ApplicationConstants {
-    String SPRING_PROFILE_DEVELOPMENT = "dev";
-    String SPRING_PROFILE_TEST = "test";
-    String SPRING_PROFILE_PRODUCTION = "prod";
+public class ApplicationConstants {
+    public static final String SPRING_PROFILE_DEVELOPMENT = "dev";
+    public static final String SPRING_PROFILE_TEST = "test";
+    public static final String SPRING_PROFILE_PRODUCTION = "prod";
+
+    private ApplicationConstants() {
+        throw new IllegalStateException("Cannot instantiate");
+    }
 }

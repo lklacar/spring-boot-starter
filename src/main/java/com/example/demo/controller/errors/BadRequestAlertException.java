@@ -3,12 +3,15 @@ package com.example.demo.controller.errors;
 import org.zalando.problem.AbstractThrowableProblem;
 import org.zalando.problem.Status;
 
+import java.io.Serial;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("java:S110")
 public class BadRequestAlertException extends AbstractThrowableProblem {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private final String entityName;

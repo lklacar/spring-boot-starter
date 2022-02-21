@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class PrefixedSimpleKey implements Serializable {
 
     private final String prefix;
-    private final Object[] params;
+    private final transient Object[] params;
     private final String methodName;
     private int hashCode;
 
@@ -29,9 +29,9 @@ public class PrefixedSimpleKey implements Serializable {
     @Override
     public boolean equals(Object other) {
         return (this == other ||
-            (other instanceof PrefixedSimpleKey && this.prefix.equals(((PrefixedSimpleKey) other).prefix) &&
-                this.methodName.equals(((PrefixedSimpleKey) other).methodName) &&
-                Arrays.deepEquals(this.params, ((PrefixedSimpleKey) other).params)));
+            (other instanceof PrefixedSimpleKey prefixedSimpleKey && this.prefix.equals(((PrefixedSimpleKey) other).prefix) &&
+                this.methodName.equals(prefixedSimpleKey.methodName) &&
+                Arrays.deepEquals(this.params, prefixedSimpleKey.params)));
     }
 
     @Override

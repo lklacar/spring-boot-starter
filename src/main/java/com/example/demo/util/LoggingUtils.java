@@ -39,10 +39,11 @@ public final class LoggingUtils {
         consoleAppender.setName(CONSOLE_APPENDER_NAME);
         consoleAppender.start();
 
-        context.getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME).detachAppender(CONSOLE_APPENDER_NAME);
-        context.getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME).addAppender(consoleAppender);
+        context.getLogger(Logger.ROOT_LOGGER_NAME).detachAppender(CONSOLE_APPENDER_NAME);
+        context.getLogger(Logger.ROOT_LOGGER_NAME).addAppender(consoleAppender);
     }
 
+    @SuppressWarnings("java:S1874")
     public static void addLogstashTcpSocketAppender(LoggerContext context, String customFields,
                                                     RootProperties.Logging.Logstash logstashProperties) {
         log.info("Initializing Logstash loggingProperties");
@@ -55,7 +56,7 @@ public final class LoggingUtils {
         logstashAppender.setQueueSize(logstashProperties.getQueueSize());
         logstashAppender.start();
 
-        context.getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME).addAppender(logstashAppender);
+        context.getLogger(Logger.ROOT_LOGGER_NAME).addAppender(logstashAppender);
     }
 
     public static void addContextListener(LoggerContext context, String customFields, RootProperties.Logging properties) {
@@ -79,6 +80,7 @@ public final class LoggingUtils {
         return logstashEncoder;
     }
 
+    @SuppressWarnings("java:S1874")
     private static LoggingEventJsonProviders jsonProviders(LoggerContext context, String customFields) {
         final LoggingEventJsonProviders jsonProviders = new LoggingEventJsonProviders();
         jsonProviders.addArguments(new ArgumentsJsonProvider());
@@ -153,12 +155,7 @@ public final class LoggingUtils {
 
         @Override
         public void onReset(LoggerContext context) {
-            if (this.loggingProperties.isUseJsonFormat()) {
-                addJsonConsoleAppender(context, customFields);
-            }
-            if (this.loggingProperties.getLogstash().isEnabled()) {
-                addLogstashTcpSocketAppender(context, customFields, loggingProperties.getLogstash());
-            }
+            onStart(context);
         }
 
         @Override

@@ -1,12 +1,10 @@
 package com.example.demo.util;
 
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.boot.info.GitProperties;
 import org.springframework.cache.interceptor.KeyGenerator;
-
-
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.RandomStringUtils;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.Method;
@@ -36,8 +34,8 @@ public class PrefixedKeyGenerator implements KeyGenerator {
         }
         Object p = ObjectUtils.firstNonNull(shortCommitId, time, version, RandomStringUtils.randomAlphanumeric(12));
 
-        if (p instanceof Instant) {
-            return DateTimeFormatter.ISO_INSTANT.format((Instant) p);
+        if (p instanceof Instant instant) {
+            return DateTimeFormatter.ISO_INSTANT.format(instant);
         }
         return p.toString();
     }

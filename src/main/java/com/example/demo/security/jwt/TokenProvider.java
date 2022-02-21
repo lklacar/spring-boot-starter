@@ -92,7 +92,7 @@ public class TokenProvider {
             .stream(claims.get(AUTHORITIES_KEY).toString().split(","))
             .filter(auth -> !auth.trim().isEmpty())
             .map(SimpleGrantedAuthority::new)
-            .collect(Collectors.toList());
+            .toList();
 
         User principal = new User(claims.getSubject(), "", authorities);
 
@@ -120,7 +120,7 @@ public class TokenProvider {
             this.securityMetersService.trackTokenInvalidSignature();
 
             log.trace(INVALID_JWT_TOKEN, e);
-        } catch (IllegalArgumentException e) { // TODO: should we let it bubble (no catch), to avoid defensive programming and follow the fail-fast principle?
+        } catch (IllegalArgumentException e) {
             log.error("Token validation error {}", e.getMessage());
         }
 
